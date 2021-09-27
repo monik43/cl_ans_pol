@@ -16,4 +16,4 @@ class helpdesk_ticket(models.Model):
     def onchange_stage_id_eq_sla_id(self):
         for ticket in self:
             if not ticket.stage_id.sla_id:
-                print("no sla id")
+                print(self.env['helpdesk.sla'].search([('name', '=', ticket.stage_id.name)]).name)
