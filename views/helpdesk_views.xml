@@ -1,0 +1,14 @@
+<odoo>
+  <data>
+    <record id="cl_helpdesk_stage_form_ans_id" model="ir.ui.view">
+      <field name="name">cl_helpdesk.stage.form.ans.id</field>
+      <field name="model">helpdesk.stage</field>
+      <field name="inherit_id" ref="helpdesk.helpdesk_stage_view_form"/>
+      <field name="arch" type="xml">
+        <xpath expr="//field[@name='is_close']" position="after">
+          <field name="sla_id">
+        </xpath>
+      </field>
+    </record>
+  </data>
+</odoo>
