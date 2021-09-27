@@ -15,5 +15,7 @@ class helpdesk_ticket(models.Model):
     @api.onchange('stage_id')
     def onchange_stage_id_eq_sla_id(self):
         for ticket in self:
-            if not ticket.stage_id.sla_id:
-                print(self.env['helpdesk.sla'].search([('name', '=', ticket.stage_id.name)]).name)
+            if not ticket.stage_id.sla_id and self.env['helpdesk.sla'].search([('name', '=', ticket.stage_id.name)]):
+                ticket.sla_id = self.env['helpdesk.sla'].search([('name', '=', ticket.stage_id.name)])
+            elif ticket.stage_id.sla_id:
+                ticket.sla_id = ticket.stage_id.sla_id
