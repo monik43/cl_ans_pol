@@ -6,7 +6,7 @@
       <field name="inherit_id" ref="helpdesk.helpdesk_stage_view_form"/>
       <field name="arch" type="xml">
         <xpath expr="//field[@name='is_close']" position="after">
-          <field name="sla_id">
+          <field name="sla_id"/>
         </xpath>
       </field>
     </record>
