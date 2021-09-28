@@ -7,6 +7,7 @@
       <field name="arch" type="xml">
         <xpath expr="//field[@name='is_close']" position="after">
           <field name="sla_id"/>
+          <field name="def_assign"/>
         </xpath>
       </field>
     </record>
