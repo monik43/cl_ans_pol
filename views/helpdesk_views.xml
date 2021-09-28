@@ -7,7 +7,7 @@
       <field name="arch" type="xml">
         <xpath expr="//field[@name='is_close']" position="after">
           <field name="sla_id"/>
-          <field name="def_assign" domain="[('share','=',False)]"/>
+          <field name="def_assign" domain="[('sel_groups_88_89','!=',False)]"/>
         </xpath>
       </field>
     </record>

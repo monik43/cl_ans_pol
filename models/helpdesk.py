@@ -7,7 +7,7 @@ class helpdesk_stage(models.Model):
     _inherit = "helpdesk.stage"
 
     sla_id = fields.Many2one('helpdesk.sla', 'Politica ANS')
-    def_assign = fields.Many2one('res.users', 'Técnico', domain="[('sel_groups_88_89','!=',False)]")
+    def_assign = fields.Many2one('res.users', 'Técnico')
 
 
 class helpdesk_ticket(models.Model):
