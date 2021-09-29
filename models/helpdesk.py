@@ -12,7 +12,7 @@ class helpdesk_stage(models.Model):
 
 class helpdesk_ticket(models.Model):
     _inherit = "helpdesk.ticket"
-
+    
     @api.onchange('stage_id')
     def onchange_stage_id_eq_sla_id(self):
         for ticket in self:
@@ -20,3 +20,7 @@ class helpdesk_ticket(models.Model):
                 ticket.sla_id = self.env['helpdesk.sla'].search([('name', '=', ticket.stage_id.name)])
             elif ticket.stage_id.sla_id:
                 ticket.sla_id = ticket.stage_id.sla_id
+
+            if ticket.stage_id.def_assign and ticket.user_id != ticket.stage_id.def_assign:
+                print(f"default: {ticket.stage_id.def_assign} _ user_id: {ticket.user_id}")
+                ticket.user_id = ticket.stage_id.def_assign
