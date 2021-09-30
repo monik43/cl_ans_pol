@@ -15,7 +15,7 @@ class helpdesk_ticket(models.Model):
 
     def _get_historial_tickets(self):
         for ticket in self:
-            for t in self.env['helpdesk.ticket'].search(['|', ('x_sn', '=', ticket.x_sn), ('x_lot_id', '=', ticket.x_lot_id)]):
+            for t in self.env['helpdesk.ticket'].search(['|', ('x_sn.id', '=', ticket.x_sn.id), ('x_lot_id.id', '=', ticket.x_lot_id.id)]):
                 print(f"{t.name} -- {t.id}, {t.stage_id.name} #")
 
     @api.onchange('stage_id')
