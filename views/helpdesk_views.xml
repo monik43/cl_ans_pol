@@ -11,10 +11,10 @@
         </xpath>
       </field>
     </record>
-    <record id="cl_helpdesk_ticket_form_inherit_timesheet_tickets_anteriores" model="ir.ui.view">
-      <field name="name">cl_helpdesk.ticket.form.inherit.timesheet.tickets.anteriores</field>
+    <record id="cl_helpdesk_ticket_form_tickets_anteriores" model="ir.ui.view">
+      <field name="name">cl_helpdesk.ticket.form.tickets.anteriores</field>
       <field name="model">helpdesk.ticket</field>
-      <field name="inherit_id" ref="helpdesk_timesheet.helpdesk_ticket_view_form_inherit_helpdesk_timesheet"/>
+      <field name="inherit_id" ref="helpdesk.helpdesk_ticket_view_form"/>
       <field name="arch" type="xml">
         <xpath expr="//field[@name='description']" position="after">
           <notebook>
