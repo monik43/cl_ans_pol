@@ -17,11 +17,9 @@
       <field name="inherit_id" ref="helpdesk.helpdesk_ticket_view_form"/>
       <field name="arch" type="xml">
         <xpath expr="//field[@name='description']" position="after">
-          <notebook>
-            <page string="Otros tickets del lote">
-              <field name="historial_tickets"/>
-            </page>
-          </notebook>
+          <page string="Otros tickets del lote">
+            <field name="historial_tickets"/>
+          </page>
         </xpath>
       </field>
     </record>
