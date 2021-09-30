@@ -16,10 +16,12 @@
       <field name="model">helpdesk.ticket</field>
       <field name="inherit_id" ref="helpdesk_timesheet.helpdesk_ticket_view_form_inherit_helpdesk_timesheet"/>
       <field name="arch" type="xml">
-        <xpath expr="//page[2]" position="after">
-          <page string="Otros tickets del lote">
-            <field name="historial_tickets"/>
-          </page>
+        <xpath expr="//field[@name='description']" position="after">
+          <notebook>
+            <page string="Otros tickets del lote">
+              <field name="historial_tickets"/>
+            </page>
+          </notebook>
         </xpath>
       </field>
     </record>
