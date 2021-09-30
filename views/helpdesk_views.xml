@@ -17,7 +17,7 @@
       <field name="inherit_id" ref="helpdesk.helpdesk_ticket_view_form"/>
       <field name="arch" type="xml">
         <xpath expr="//field[@name='x_lot_id']" position="after">
-            <field name="historial_tickets">
+            <field name="historial_tickets" domain="['|', ('active', '=', True), ('active', '=', False)]">
               <tree>
                 <field name="id" string="Ref"/>
                 <field name="name"/>
