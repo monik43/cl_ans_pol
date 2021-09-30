@@ -16,8 +16,8 @@
       <field name="model">helpdesk.ticket</field>
       <field name="inherit_id" ref="helpdesk.helpdesk_ticket_view_form"/>
       <field name="arch" type="xml">
-        <xpath expr="//field[@name='description']" position="after">
-            <field name="historial_tickets" invisible="1"/>
+        <xpath expr="//field[@name='ordensat']" position="after">
+            <field name="historial_tickets"/>
         </xpath>
       </field>
     </record>
