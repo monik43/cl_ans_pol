@@ -15,8 +15,9 @@ class helpdesk_ticket(models.Model):
 
     def _get_historial_tickets(self):
         for ticket in self:
+            print(f"{ticket.name} -- {ticket.id}, {ticket.stage_id.name}","#"*25)
             for t in self.env['helpdesk.ticket'].search(['|', ('x_sn', '=', ticket.x_sn), ('x_lot_id.id', '=', ticket.x_lot_id.id)]):
-                print(f"{t.name} -- {t.id}, {t.stage_id.name} #")
+                print(f"{t.name} -- {t.id}, {t.stage_id.name} #","#"*24)
 
     @api.onchange('stage_id')
     def onchange_stage_id_eq_sla_id(self):
