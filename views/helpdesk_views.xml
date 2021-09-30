@@ -10,17 +10,18 @@
           <field name="def_assign" domain="[('share','=',False)]"/>
         </xpath>
       </field>
-    </record><!--
-    <record id="cl_helpdesk_ticket_form_tickets_anteriores" model="ir.ui.view">
-      <field name="name">cl_helpdesk.ticket.form.tickets.anteriores</field>
+    </record>
+    <record id="cl_helpdesk_ticket_form_inherit_timesheet_tickets_anteriores" model="ir.ui.view">
+      <field name="name">cl_helpdesk.ticket.form.inherit.timesheet.tickets.anteriores</field>
       <field name="model">helpdesk.ticket</field>
-      <field name="inherit_id" ref="helpdesk.helpdesk_ticket_view_form"/>
+      <field name="inherit_id" ref="helpdesk_timesheet.helpdesk_ticket_view_form_inherit_helpdesk_timesheet"/>
       <field name="arch" type="xml">
-        
-        <xpath expr="//field[@name='is_close']" position="after">
+        <xpath expr="//page[2]" position="after">
+          <page string="Otros tickets del lote">
+            <field name="historial_tickets"/>
+          </page>
         </xpath>
-        
       </field>
-    </record>-->
+    </record>
   </data>
 </odoo>
