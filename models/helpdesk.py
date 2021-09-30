@@ -34,5 +34,5 @@ class helpdesk_ticket(models.Model):
                 ticket.user_id = ticket.stage_id.def_assign
 
     historial_tickets = fields.One2many(
-        'helpdesk.ticket', 'Tickets anteriores', compute="_get_historial_tickets")
+        'helpdesk.ticket', string='Tickets anteriores', compute="_get_historial_tickets")
     #historial_tickets = fields.One2many('helpdesk.ticket')
