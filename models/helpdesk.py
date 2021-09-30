@@ -16,7 +16,7 @@ class helpdesk_ticket(models.Model):
     def _get_historial_tickets(self):
         for ticket in self:
             for t in self.env['helpdesk.ticket'].search(['|', ('x_sn', '=', ticket.x_sn), ('x_lot_id.id', '=', ticket.x_lot_id.id)]):
-                if t.id != ticket.id:
+                if t.id != ticket.id and (t.active in (True,False)):
                     ticket.update({'historial_tickets':[(4, t.id)]})
 
     @api.onchange('stage_id')
