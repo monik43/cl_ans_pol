@@ -14,10 +14,11 @@ class mail_activity(models.Model):
         if self.activity_type_id and self.user_id:
             self.summary = self.activity_type_id.summary
             tz = self.user_id.sudo().tz
-            laborables = tuple([x for x in self.user_id.resource_calendar_id.attendance_ids.dayofweek])
-            print(laborables)
-            """for dia in self.user_id.resource_calendar_id.attendance_ids:
-                laborables += (int(dia.dayofweek),)"""
+            laborables = tuple()
+
+            for dia in self.user_id.resource_calendar_id.attendance_ids:
+                laborables += (int(dia.dayofweek),)
+            print(f"lab dow: {laborables}")
 
             if tz:
                 today_utc = pytz.UTC.localize(datetime.utcnow())
@@ -25,10 +26,7 @@ class mail_activity(models.Model):
             else:
                 today = datetime.now()
 
-            """date_deadline = (today + timedelta(days=self.activity_type_id.days))
-
-            for dia in self.user_id.resource_calendar_id.attendance_ids:
-                laborables += (int(dia.dayofweek),)
+            date_deadline = (today + timedelta(days=self.activity_type_id.days))
 
             if date_deadline.weekday() not in laborables:
                 for day in range(1,7):
@@ -40,6 +38,6 @@ class mail_activity(models.Model):
                 print("dt in laborables")
             print("end")
 
-            self.date_deadline = ###"""
+            #self.date_deadline = ###
             self.date_deadline = (today + timedelta(days=self.activity_type_id.days))
             
