@@ -21,12 +21,14 @@ class mail_activity(models.Model):
 
         if dt.weekday() not in laborables:
             for day in range(1,7):
-                ndt = dt + timedelta(days=day)
+                ndt = (dt + timedelta(days=day)).weekday()
                 print(f"Dia: {ndt.weekday()}")
-                if ndt in laborables:
+                if ndt.weekday() in laborables:
                     print(ndt.weekday(), " is laborable")
+                    break
         else:
             print("dt in laborables")
+        print("end")
         # continue as sudo because activities are somewhat protected
         activity = super(mail_activity, self.sudo()).create(values_w_defaults)
         activity_user = activity.sudo(self.env.user)
