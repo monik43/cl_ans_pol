@@ -13,12 +13,12 @@ class mail_activity(models.Model):
         # already compute default values to be sure those are computed using the current user
         values_w_defaults = self.default_get(self._fields.keys())
         values_w_defaults.update(values)
-        dt = datetime.strptime(values_w_defaults['date_deadline'], '%Y-%m-%d').weekday()
+        dt = datetime.strptime(values_w_defaults['date_deadline'], '%Y-%m-%d')
         laborables = tuple()
         for dia in self.env['res.users'].browse(values_w_defaults['user_id']).resource_calendar_id.attendance_ids:
             laborables += (int(dia.dayofweek),)
         print(dt, laborables)
-        if dt not in laborables:
+        if dt.weekday() not in laborables:
             print("dt not in laborables")
         else:
             print("dt in laborables")
