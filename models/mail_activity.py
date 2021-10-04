@@ -18,10 +18,13 @@ class mail_activity(models.Model):
         for dia in self.env['res.users'].browse(values_w_defaults['user_id']).resource_calendar_id.attendance_ids:
             laborables += (int(dia.dayofweek),)
         print(dt, laborables)
+
         if dt.weekday() not in laborables:
             for day in range(1,7):
-                print(day)
-                print(dt + timedelta(days=day))
+                ndt = dt + timedelta(days=day)
+                print(f"Dia: {ndt.weekday()}")
+                if ndt in laborables:
+                    print(ndt.weekday(), " is laborable")
         else:
             print("dt in laborables")
         # continue as sudo because activities are somewhat protected
