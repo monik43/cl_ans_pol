@@ -16,8 +16,8 @@ class helpdesk_ticket(models.Model):
     def _get_historial_tickets(self):
         for ticket in self:
             for t in self.env['helpdesk.ticket'].with_context(active_test=False).search(['|', ('x_sn', '=', ticket.x_sn), ('x_lot_id.id', '=', ticket.x_lot_id.id)]):
-                if t.id != ticket.id and (t.active in (True,False)):
-                    ticket.update({'historial_tickets':[(4, t.id)]})
+                if t.id != ticket.id and (t.active in (True, False)):
+                    ticket.update({'historial_tickets': [(4, t.id)]})
 
     @api.onchange('stage_id')
     def onchange_stage_id_eq_sla_id(self):
@@ -30,8 +30,6 @@ class helpdesk_ticket(models.Model):
                 ticket.sla_id = ticket.stage_id.sla_id
             # asignacion usuario x defecto
             if ticket.stage_id.def_assign and ticket.user_id != ticket.stage_id.def_assign:
-                print(
-                    f"default: {ticket.stage_id.def_assign} _ user_id: {ticket.user_id}")
                 ticket.user_id = ticket.stage_id.def_assign
 
     historial_tickets = fields.One2many(

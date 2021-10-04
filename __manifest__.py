@@ -19,7 +19,7 @@
     'auto_install': False,
     'application': True,
     # any module necessary for this one to work correctly
-    'depends': ['base','helpdesk'],
+    'depends': ['base', 'helpdesk', 'mail'],
 
     # always loaded
     'data': [
