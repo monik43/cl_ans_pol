@@ -18,7 +18,6 @@ class mail_activity(models.Model):
 
             for dia in self.user_id.resource_calendar_id.attendance_ids:
                 laborables += (int(dia.dayofweek),)
-            print(f"lab dow: {laborables}")
 
             if tz:
                 today_utc = pytz.UTC.localize(datetime.utcnow())
@@ -32,12 +31,8 @@ class mail_activity(models.Model):
                 for day in range(1,7):
                     ndt = date_deadline + timedelta(days=day)
                     if ndt.weekday() in laborables:
-                        print(ndt.weekday(), " is laborable")
+                        date_deadline = ndt
                         break
-            else:
-                print("dt in laborables")
-            print("end")
 
-            #self.date_deadline = ###
-            self.date_deadline = (today + timedelta(days=self.activity_type_id.days))
+            self.date_deadline = date_deadline
             
