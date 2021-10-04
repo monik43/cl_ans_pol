@@ -12,6 +12,7 @@ class mail_activity(models.Model):
     @api.onchange('activity_type_id','user_id')
     def _onchange_activity_type_id(self):
         if self.activity_type_id:
+            print(self.activity_type_id)
             self.summary = self.activity_type_id.summary
             tz = self.user_id.sudo().tz
             if tz:
