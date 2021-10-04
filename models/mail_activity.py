@@ -28,7 +28,7 @@ class mail_activity(models.Model):
             date_deadline = (today + timedelta(days=self.activity_type_id.days))
 
             if date_deadline.weekday() not in laborables:
-                for day in range(1,7):
+                for day in range(1,8):
                     ndt = date_deadline + timedelta(days=day)
                     if ndt.weekday() in laborables:
                         date_deadline = ndt
