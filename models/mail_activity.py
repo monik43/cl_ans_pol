@@ -14,7 +14,7 @@ class mail_activity(models.Model):
         if self.activity_type_id and self.user_id:
             self.summary = self.activity_type_id.summary
             tz = self.user_id.sudo().tz
-            laborables = tuple([x for x in self.user_id.resource_calendar_id.attendance_ids])
+            laborables = tuple([x for x in self.user_id.resource_calendar_id.attendance_ids.dayofweek])
             print(laborables)
             """for dia in self.user_id.resource_calendar_id.attendance_ids:
                 laborables += (int(dia.dayofweek),)"""
