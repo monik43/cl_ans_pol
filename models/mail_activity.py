@@ -13,15 +13,14 @@ class mail_activity(models.Model):
     def _onchange_activity_type_id(self):
         if self.activity_type_id:
             self.summary = self.activity_type_id.summary
-            print(self.summary)
             tz = self.user_id.sudo().tz
-            print(tz)
             if tz:
                 today_utc = pytz.UTC.localize(datetime.utcnow())
                 today = today_utc.astimezone(pytz.timezone(tz))
             else:
                 today = datetime.now()
-            print(self.activity_type_id.days)
+
+            print(today + timedelta(days=self.activity_type_id.days), "/"*25)
             self.date_deadline = (today + timedelta(days=self.activity_type_id.days))
 
     @api.model
