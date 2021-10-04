@@ -17,6 +17,7 @@ class mail_activity(models.Model):
         laborables = tuple()
         for dia in self.env['res.users'].browse(values_w_defaults['user_id']).resource_calendar_id.attendance_ids:
             laborables += (dia.dayofweek,)
+        print(dt, laborables)
         if dt not in laborables:
             print("dt not in laborables")
         else:
