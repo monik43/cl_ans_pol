@@ -20,7 +20,7 @@ class mail_activity(models.Model):
             else:
                 today = datetime.now()
 
-            print(today + timedelta(days=self.activity_type_id.days), "/"*25)
+            print(today + timedelta(days=self.activity_type_id.days).weekday(), "/"*25)
             self.date_deadline = (today + timedelta(days=self.activity_type_id.days))
 
     @api.model
