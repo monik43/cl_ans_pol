@@ -43,7 +43,7 @@ class mail_activity(models.Model):
                         break
 
             self.date_deadline = date_deadline
-
+            
             # asignacion usuario x defecto de cada tipo de planificacion
             if self.activity_type_id.default_user_id:
                 self.user_id = self.activity_type_id.default_user_id
