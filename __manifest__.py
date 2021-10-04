@@ -18,13 +18,9 @@
     'installable': True,
     'auto_install': False,
     'application': True,
-    # any module necessary for this one to work correctly
     'depends': ['base', 'helpdesk', 'mail'],
 
-    # always loaded
     'data': [
-        # 'security/ir.model.access.csv',
-        # 'views/views.xml',
         'views/helpdesk_views.xml',
     ],
 }
