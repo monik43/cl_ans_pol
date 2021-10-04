@@ -21,7 +21,7 @@ class mail_activity(models.Model):
         if dt.weekday() not in laborables:
             for day in range(7+1):
                 print(day)
-                dt + timedelta(days=day)
+                dt += timedelta(days=day)
                 print(dt)
         else:
             print("dt in laborables")
