@@ -21,7 +21,7 @@ class mail_activity(models.Model):
                 today = datetime.now()
 
         #dt = datetime.strptime(values_w_defaults['date_deadline'], '%Y-%m-%d')
-        laborables = tuple()
+        #laborables = tuple()
         """for dia in self.env['res.users'].browse(values_w_defaults['user_id']).resource_calendar_id.attendance_ids:
             laborables += (int(dia.dayofweek),)
         print(dt, laborables)
