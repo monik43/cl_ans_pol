@@ -11,7 +11,6 @@ class mail_activity(models.Model):
 
     @api.onchange('activity_type_id','user_id')
     def _onchange_activity_type_id(self):
-        print(f"activity type: {self.activity_type_id}", "/"*25)
         if self.activity_type_id:
             print(f"activity type: {self.activity_type_id}", "/"*25)
             self.summary = self.activity_type_id.summary
@@ -22,23 +21,23 @@ class mail_activity(models.Model):
             else:
                 today = datetime.now()
 
-        #dt = datetime.strptime(values_w_defaults['date_deadline'], '%Y-%m-%d')
-        #laborables = tuple()
-        """for dia in self.env['res.users'].browse(values_w_defaults['user_id']).resource_calendar_id.attendance_ids:
-            laborables += (int(dia.dayofweek),)
-        print(dt, laborables)
+            #dt = datetime.strptime(values_w_defaults['date_deadline'], '%Y-%m-%d')
+            #laborables = tuple()
+            """for dia in self.env['res.users'].browse(values_w_defaults['user_id']).resource_calendar_id.attendance_ids:
+                laborables += (int(dia.dayofweek),)
+            print(dt, laborables)
 
-        if dt.weekday() not in laborables:
-            for day in range(1,7):
-                ndt = dt + timedelta(days=day)
-                print(f"Dia: {ndt.weekday()}")
-                if ndt.weekday() in laborables:
-                    print(ndt.weekday(), " is laborable")
-                    break
-        else:
-            print("dt in laborables")
-        print("end")"""
+            if dt.weekday() not in laborables:
+                for day in range(1,7):
+                    ndt = dt + timedelta(days=day)
+                    print(f"Dia: {ndt.weekday()}")
+                    if ndt.weekday() in laborables:
+                        print(ndt.weekday(), " is laborable")
+                        break
+            else:
+                print("dt in laborables")
+            print("end")"""
 
-        print((today + timedelta(days=self.activity_type_id.days)).weekday(), "/"*25)
-        self.date_deadline = (
-            today + timedelta(days=self.activity_type_id.days))
+            print((today + timedelta(days=self.activity_type_id.days)).weekday(), "/"*25)
+            self.date_deadline = (
+                today + timedelta(days=self.activity_type_id.days))
