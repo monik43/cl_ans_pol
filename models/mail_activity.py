@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 from collections import defaultdict
-from datetime import date, datetime, timedelta
+from datetime import date, datetime, time, timedelta
 from odoo import api, fields, models, _
 
 
@@ -19,7 +19,10 @@ class mail_activity(models.Model):
             laborables += (int(dia.dayofweek),)
         print(dt, laborables)
         if dt.weekday() not in laborables:
-            print("dt not in laborables")
+            for day in range(7+1):
+                print(day)
+                dt + timedelta(days=day)
+                print(dt)
         else:
             print("dt in laborables")
         # continue as sudo because activities are somewhat protected
