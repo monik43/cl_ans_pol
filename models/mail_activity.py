@@ -9,7 +9,7 @@ from odoo import api, fields, models, _
 class mail_activity(models.Model):
     _inherit = "mail.activity"
 
-    @api.onchange('activity_type_id, user_id')
+    @api.onchange('activity_type_id','user_id')
     def _onchange_activity_type_id(self):
         if self.activity_type_id:
             self.summary = self.activity_type_id.summary
