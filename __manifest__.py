@@ -22,5 +22,6 @@
 
     'data': [
         'views/helpdesk_views.xml',
+        'views/mail_activity_views.xml',
     ],
 }

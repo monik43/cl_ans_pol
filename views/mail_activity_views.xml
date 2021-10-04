@@ -1,0 +1,14 @@
+<odoo>
+    <data>
+        <record id="cl_mail_activity_type_view_form_default_user_id" model="ir.ui.view">
+            <field name="name">cl_mail.activity.type.view.form.default.user.id</field>
+            <field name="model">mail.activity.type</field>
+            <field name="inherit_id" ref="mail.mail_activity_type_view_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='next_type_ids']" position="after">
+                    <field name="default_user_id"/>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>
