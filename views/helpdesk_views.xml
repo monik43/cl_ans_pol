@@ -14,7 +14,7 @@
     <record id="cl_helpdesk_timesheet_tickets_anteriores" model="ir.ui.view">
       <field name="name">cl_helpdesk.ticket.form.inherit.timesheet.tickets.anteriores</field>
       <field name="model">helpdesk.ticket</field>
-      <field name="inherit_id" ref="helpdesk_timesheet.helpdesk_ticket_view_form_inherit_helpdesk_timesheet"/>
+      <field name="inherit_id" ref="cl_minor_additions.cl_helpdesk_ticket_view_form_inherit_helpdesk_timesheet"/>
       <field name="arch" type="xml">
         <xpath expr="//field[@name='ordensat']" position="after">
             <field name="historial_tickets">
