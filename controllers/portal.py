@@ -28,7 +28,7 @@ class CustomCustomerPortal(CustomerPortal):
             == "person"
         ):
             user_is_company = False
-        print(f" Test --- {user_is_company}")
+        print(f" Test --- {user_is_company}", "/"*50)
         return {
             "sales_user": sales_user,
             "page_name": "home",
