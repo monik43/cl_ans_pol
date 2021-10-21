@@ -15,5 +15,5 @@ class CustomCustomerPortal(CustomerPortal):
             == "person"
         ):
             user_is_company = False
-        print(f" _prepare_portal_layout_values --- {user_is_company}", "/" * 50)
+        print(f" _prepare_portal_layout_values ---- {user_is_company}", "/" * 50)
         return res
