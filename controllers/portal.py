@@ -34,7 +34,7 @@ class CustomCustomerPortal(CustomerPortal):
             "user_is_company": user_is_company,
         }
 
-    @route(["/my", "/my/home"], type="http", auth="user", website=True)
+    @route(["/my", "/my/home","/m"], type="http", auth="user", website=True)
     def home(self, **kw):
         values = self._prepare_portal_layout_values()
         print(f" Test --- {values['user_is_company']}", "/" * 50)
