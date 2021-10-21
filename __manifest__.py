@@ -18,7 +18,7 @@
     'installable': True,
     'auto_install': False,
     'application': True,
-    'depends': ['base', 'helpdesk', 'mail'],
+    'depends': ['base', 'helpdesk', 'mail', 'cl_minor_additions'],
 
     'data': [
         'views/helpdesk_views.xml',
