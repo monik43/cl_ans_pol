@@ -13,7 +13,7 @@ from odoo.addons.portal.controllers.portal import CustomerPortal
 
 
 class CustomCustomerPortal(CustomerPortal):
-    
+
     def _prepare_portal_layout_values(self):
         # get customer sales rep
         sales_user = False
@@ -28,7 +28,7 @@ class CustomCustomerPortal(CustomerPortal):
             == "person"
         ):
             user_is_company = False
-
+        print(f" Test --- {user_is_company}")
         return {
             "sales_user": sales_user,
             "page_name": "home",
