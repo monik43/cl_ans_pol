@@ -12,7 +12,6 @@ from odoo.addons.portal.controllers.portal import CustomerPortal
 
 
 class CustomCustomerPortal(CustomerPortal):
-
     def _prepare_portal_layout_values(self):
         # get customer sales rep
         sales_user = False
@@ -27,10 +26,16 @@ class CustomCustomerPortal(CustomerPortal):
             == "person"
         ):
             user_is_company = False
-        print(f" Test --- {user_is_company}", "/"*50)
+        print(f" Test --- {user_is_company}", "/" * 50)
         return {
             "sales_user": sales_user,
             "page_name": "home",
             "archive_groups": [],
             "user_is_company": user_is_company,
         }
+
+    @route(["/my", "/my/home"], type="http", auth="user", website=True)
+    def home(self, **kw):
+        values = self._prepare_portal_layout_values()
+        print(f" Test --- {values['user_is_company']}", "/" * 50)
+        return request.render("portal.portal_my_home", values)
