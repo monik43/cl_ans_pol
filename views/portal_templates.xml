@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-    <template id="cl_portal_my_home" inherit_id="account.portal_my_home_invoice" name="My Portal custom">
+    <template id="cl_portal_my_home_menu" inherit_id="account.portal_my_home_menu_invoice" name="My Portal custom">
         <xpath expr="//li[hasclass('list-group-item')]" position="replace">
             <b>test</b>
         </xpath>
