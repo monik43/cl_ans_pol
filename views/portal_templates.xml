@@ -1,8 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-    <template id="cl_portal_my_home_menu" inherit_id="account.portal_my_home_menu_invoice" name="My Portal custom">
-        <xpath expr="//li" position="replace">
-            <b>test</b>
+    <template id="cl_portal_my_home" inherit_id="account.portal_my_home_invoice" name="My Portal custom" priority="30">
+        <xpath expr="//li[hasclass('list-group-item')]" position="replace">
+            <!--<li t-if="invoice_count" class="list-group-item">
+                <span class="badge" t-esc="invoice_count"/>
+                <a href="/my/invoices">Invoices</a>
+            </li>-->
         </xpath>
     </template>
 </odoo>
