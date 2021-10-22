@@ -2,6 +2,7 @@
 <odoo>
     <template id="cl_portal_my_home" inherit_id="account.portal_my_home_invoice" name="My Portal custom">
         <xpath expr="//li" position="replace">
+            <b>holi</b>
             <t t-if="user_is_company">
                 <li t-if="invoice_count" class="list-group-item">
                     <span class="badge" t-esc="invoice_count"/>
