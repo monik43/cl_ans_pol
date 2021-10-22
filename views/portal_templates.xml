@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-    <template id="cl_portal_my_home" inherit_id="portal.portal_my_home" name="My Portal custom">
-        <xpath expr="//li[hasclass('list-group-item')]" position="replace">
+    <template id="cl_portal_my_home" inherit_id="portal.portal_my_home" name="My Portal custom" priority="31">
+        <xpath expr="//ul[hasclass('o_portal_docs')]" position="inside">
             <li t-if="invoice_count" class="list-group-item">
                 <span class="badge" t-esc="invoice_count"/>
                 <a href="/my/invoices">Facturos</a>
