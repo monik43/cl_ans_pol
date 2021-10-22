@@ -1,16 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-    <template id="portal_my_home" name="My Portal">
-        <t t-call="portal.portal_layout">
-            <t t-set="my_details" t-value="True"/>
-            <div class="o_portal_my_home">
-                <div class="oe_structure"></div>
-                <h3 class="page-header">test</h3>
-                <h3 class="page-header">Your Documents</h3>
-                <ul class="o_portal_docs list-group">
-                </ul>
-            </div>
-            <div class="col-md-12 oe_structure"/>
-        </t>
+    <template id="cl_portal_my_home" inherit_id="account.portal_my_home_invoice" name="My Portal custom">
+        <xpath expr="//li" position="replace">
+            <t t-if="user_is_company">
+                <li t-if="invoice_count" class="list-group-item">
+                    <span class="badge" t-esc="invoice_count"/>
+                    <a href="/my/invoices">Invoices</a>
+                </li>
+            </t>
+        </xpath>
     </template>
 </odoo>

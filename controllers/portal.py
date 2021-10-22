@@ -17,8 +17,3 @@ class CustomCustomerPortal(CustomerPortal):
         values['user_is_company'] = user_is_company
         print(values)
         return values
-    
-    @route(['/my', '/my/home'], type='http', auth="user", website=True)
-    def home(self, **kw):
-        values = self._prepare_portal_layout_values()
-        return request.render("cl_ans_pol.portal_my_home", values)
