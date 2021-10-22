@@ -24,6 +24,6 @@
         'views/helpdesk_views.xml',
         'views/mail_activity_views.xml',
         'views/cl_minor_additions_views.xml',
-        'views/portal_templates.xml',
+        #'views/portal_templates.xml',
     ],
 }
