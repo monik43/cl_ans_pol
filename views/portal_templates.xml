@@ -2,7 +2,10 @@
 <odoo>
     <template id="cl_portal_my_home" inherit_id="account.portal_my_home_invoice" name="My Portal custom">
         <xpath expr="//li[hasclass('list-group-item')]" position="inside">
-            <h1>3333333333333333333333333</h1>
+            <li t-if="invoice_count" class="list-group-item">
+                <span class="badge" t-esc="invoice_count"/>
+                <a href="/my/invoices">Facturas</a>
+            </li>
         </xpath>
     </template>
 </odoo>
