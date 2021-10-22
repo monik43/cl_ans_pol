@@ -1,13 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <template id="cl_portal_my_home" inherit_id="account.portal_my_home_invoice" name="My Portal custom">
-        <xpath expr="//li" position="replace">
+        <xpath expr="//li" position="inside">
             <b>holi</b>
             <t t-if="user_is_company">
-                <li t-if="invoice_count" class="list-group-item">
-                    <span class="badge" t-esc="invoice_count"/>
-                    <a href="/my/invoices">Invoices</a>
-                </li>
+                <span class="badge" t-esc="invoice_count"/>
+                <a href="/my/invoices">Invoices</a>
             </t>
         </xpath>
     </template>
