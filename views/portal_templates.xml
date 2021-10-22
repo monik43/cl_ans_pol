@@ -2,7 +2,7 @@
 <odoo>
     <template id="cl_portal_my_home" inherit_id="account.portal_my_home_invoice" name="My Portal custom">
         <xpath expr="//li[hasclass('list-group-item')]" position="inside">
-            <b>holi</b>
+            <h1>3333333333333333333333333</h1>
         </xpath>
     </template>
 </odoo>
