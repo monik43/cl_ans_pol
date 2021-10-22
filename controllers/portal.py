@@ -19,8 +19,8 @@ class CustomCustomerPortal(CustomerPortal):
 
         if request.env["res.users"].browse(request.uid).partner_id.company_type == "person":
             user_is_company = False
-
-        print(f" _prepare_portal_layout_values ---- {user_is_company}", "/" * 50)
+        print("Controller inherited", "/"*25)
+        #print(f" _prepare_portal_layout_values ---- {user_is_company}", "/" * 50)
         return {
             "user_is_company": user_is_company,
             "sales_user": sales_user,
