@@ -15,4 +15,5 @@ class CustomCustomerPortal(CustomerPortal):
         if request.env["res.users"].browse(request.uid).partner_id.company_type == "person":
             user_is_company = False
         values['user_is_company'] = user_is_company
+        print(values)
         return values
