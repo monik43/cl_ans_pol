@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <template id="cl_portal_my_home" inherit_id="account.portal_my_home_invoice" name="My Portal custom">
-        <xpath expr="//li" position="replace">
-            <a href="/my/invoices">Fac!turas</a>
+        <xpath expr="//li[hasclass('list-group-item')]" position="inside">
+            <b>holi</b>
         </xpath>
     </template>
 </odoo>
