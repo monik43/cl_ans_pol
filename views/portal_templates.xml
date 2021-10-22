@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-    <template id="cl_portal_my_home" inherit_id="account.portal_my_home_invoice" name="My Portal custom" priority="40">
+    <template id="cl_portal_my_home" inherit_id="account.portal_my_home_invoice" name="My Portal custom">
         <xpath expr="//li" position="replace">
             <a href="/my/invoices">Fac!turas</a>
         </xpath>
