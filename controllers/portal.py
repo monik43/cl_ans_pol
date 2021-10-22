@@ -27,9 +27,3 @@ class CustomCustomerPortal(CustomerPortal):
             "page_name": "home",
             "archive_groups": [],
         }
-
-    @route(["/my", "/my/home"], type="http", auth="user", website=True)
-    def home(self, **kw):
-        values = self._prepare_portal_layout_values()
-        print(values)
-        return request.render("portal.portal_my_home", values)
