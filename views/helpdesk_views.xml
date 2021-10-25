@@ -11,5 +11,16 @@
         </xpath>
       </field>
     </record>
+    <record id="cl_helpdesk_ticket_view_kanban_order" model="ir.ui.view">
+      <field name="name">cl_helpdesk.ticket.kanban.view.order</field>
+      <field name="model">helpdesk.ticket</field>
+      <field name="inherit_id" ref="	helpdesk.helpdesk_ticket_view_kanban"/>
+      <field name="arch" type="xml">
+        <xpath expr="//kanban[hasclass('o_kanban_small_column')]" position="attributes">
+          <attribute name="default_group_by"></attribute>
+          <attribute name="default_order">sla_id</attribute>
+        </xpath>
+      </field>
+    </record>
   </data>
 </odoo>
