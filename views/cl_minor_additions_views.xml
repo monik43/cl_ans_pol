@@ -12,6 +12,7 @@
                             <field name="name"/>
                             <field name="user_id"/>
                             <field name="stage_id"/>
+                            <button name="open_ticket" string="Ir" type="object" class="oe_highlight"/>
                         </tree>
                     </field>
                 </xpath>

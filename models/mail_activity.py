@@ -13,8 +13,9 @@ class mail_activity_type(models.Model):
 class mail_activity(models.Model):
     _inherit = "mail.activity"
 
-    @api.onchange('activity_type_id','user_id')
-    def _onchange_activity_type_id(self):
+    #@api.onchange('activity_type_id','user_id'). ahora sin user_id
+    @api.onchange('activity_type_id')
+    def onchange_activity_type_id(self):
         if self.activity_type_id and self.user_id:
             self.summary = self.activity_type_id.summary
             tz = self.user_id.sudo().tz

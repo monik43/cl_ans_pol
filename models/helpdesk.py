@@ -19,6 +19,10 @@ class helpdesk_ticket(models.Model):
                 if t.id != ticket.id and (t.active in (True, False)):
                     ticket.update({'historial_tickets': [(4, t.id)]})
 
+    historial_tickets = fields.One2many(
+        'helpdesk.ticket', string='Tickets anteriores', compute="_get_historial_tickets",  context={'active_test': False})
+    #historial_tickets = fields.One2many('helpdesk.ticket')
+
     @api.onchange('stage_id')
     def onchange_stage_id_eq_sla_id(self):
         for ticket in self:
@@ -32,6 +36,21 @@ class helpdesk_ticket(models.Model):
             if ticket.stage_id.def_assign and ticket.user_id != ticket.stage_id.def_assign:
                 ticket.user_id = ticket.stage_id.def_assign
 
-    historial_tickets = fields.One2many(
-        'helpdesk.ticket', string='Tickets anteriores', compute="_get_historial_tickets",  context={'active_test': False})
-    #historial_tickets = fields.One2many('helpdesk.ticket')
+    
+    
+
+    @api.multi
+    def open_ticket(self):
+        for rec in self:
+            url = self.env["ir.config_parameter"].sudo().get_param("web.base.url")
+            rec_url = (
+                url + "/web#id=" + str(self.id) + "&view_type=form&model=helpdesk.ticket"
+            )
+            client_action = {
+                "type": "ir.actions.act_url",
+                "name": self.display_name,
+                "target": "new",
+                "url": rec_url,
+            }
+
+            return client_action

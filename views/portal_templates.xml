@@ -5,7 +5,7 @@
             <t t-if="user_is_company">
                 <li t-if="invoice_count" class="list-group-item">
                     <span class="badge" t-esc="invoice_count"/>
-                    <a href="/my/invoices">Facturass</a>
+                    <a href="/my/invoices">Facturas</a>
                 </li>
             </t>
         </xpath>
