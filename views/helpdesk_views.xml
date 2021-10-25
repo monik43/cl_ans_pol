@@ -17,7 +17,7 @@
       <field name="inherit_id" ref="helpdesk.helpdesk_ticket_view_kanban"/>
       <field name="arch" type="xml">
         <xpath expr="//kanban[hasclass('o_kanban_small_column')]" position="attributes">
-          <attribute name="default_order">sla_active asc</attribute>
+          <attribute name="default_order">sla_active desc</attribute>
         </xpath>
       </field>
     </record>
