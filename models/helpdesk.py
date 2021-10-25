@@ -18,10 +18,6 @@ class helpdesk_ticket(models.Model):
             for t in self.env['helpdesk.ticket'].with_context(active_test=False).search([('x_lot_id.id', '=', ticket.x_lot_id.id)]):
                 if t.id != ticket.id and (t.active in (True, False)):
                     ticket.update({'historial_tickets': [(4, t.id)]})
-            print(len(ticket.historial_tickets), "//"*25)
-            """for line in ticket.historial_tickets:
-                if line.x_lot_id != ticket.x_lot_id:
-                    ticket.update({'historial_tickets': [(3, ticket.id)]})"""
 
     historial_tickets = fields.One2many(
         'helpdesk.ticket', string='Tickets anteriores', compute="_get_historial_tickets",  context={'active_test': False})
