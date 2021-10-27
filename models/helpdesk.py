@@ -49,6 +49,32 @@ class helpdesk_ticket(models.Model):
                 and ticket.user_id != ticket.stage_id.def_assign
             ):
                 ticket.user_id = ticket.stage_id.def_assign
+            ticket_create_date = fields.Datetime.from_string(ticket.create_date)
+            working_calendar = self.env.user.company_id.resource_calendar_id
+            ##al cambiar de estado, se cambia la fecha de deadline
+            print(f"""
+                    ticket.sla_id.time_days -> {ticket.sla_id.time_days} \n
+                    ticket_create_date -> {ticket_create_date}\n
+                    working_calendar -> {working_calendar}\n
+
+                    """)
+            """if ticket.sla_id.time_days > 0:
+                deadline = working_calendar.plan_days(
+                        ticket.sla_id.time_days+1,
+                        ticket_create_date,
+                        compute_leaves=True)
+                    # We should also depend on ticket creation time, otherwise for 1 day SLA for example all tickets
+                    # created on monday will have the deadline as tuesday 8:00
+                deadline = deadline.replace(hour=ticket_create_date.hour, minute=ticket_create_date.minute, second=ticket_create_date.second, microsecond=ticket_create_date.microsecond)
+            else:
+                deadline = ticket_create_date
+                # We should execute the function plan_hours in any case because
+                # if i create a ticket for 1 day sla configuration and tomorrow at the same time i don't work,
+                # deadline falls on the time that i don't work which is ticket creation time and is not correct
+                ticket.deadline = working_calendar.plan_hours(
+                    ticket.sla_id.time_hours,
+                    deadline,
+                    compute_leaves=True)"""
 
 
     # team_id -> siempre el mismo
