@@ -35,14 +35,14 @@ class helpdesk_ticket(models.Model):
     def onchange_stage_id_eq_sla_id(self):
         for ticket in self:
             # asignacion politica ans correcta
-            if not ticket.stage_id.sla_id and self.env["helpdesk.sla"].search(
+            if ticket.stage_id.sla_id:
+                ticket.sla_id = ticket.stage_id.sla_id
+            elif not ticket.stage_id.sla_id and self.env["helpdesk.sla"].search(
                 [("name", "=", ticket.stage_id.name)]
             ):
                 ticket.sla_id = self.env["helpdesk.sla"].search(
                     [("name", "=", ticket.stage_id.name)]
                 )
-            elif ticket.stage_id.sla_id:
-                ticket.sla_id = ticket.stage_id.sla_id
             # asignacion usuario x defecto
             if (
                 ticket.stage_id.def_assign
@@ -55,7 +55,7 @@ class helpdesk_ticket(models.Model):
     # priority -> no relevante
     # ticket_type_id -> no usado
     # create_date
-    @api.depends('team_id', 'priority', 'ticket_type_id', 'create_date')
+    @api.depends('stage_id','create_date')
     def _compute_sla(self):
         if not self.user_has_groups("helpdesk.group_use_sla"):
             return
