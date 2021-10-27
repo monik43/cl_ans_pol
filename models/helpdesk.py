@@ -50,17 +50,23 @@ class helpdesk_ticket(models.Model):
             ):
                 ticket.user_id = ticket.stage_id.def_assign
 
+
+    # team_id -> siempre el mismo
+    # priority -> no relevante
+    # ticket_type_id -> no usado
+    # create_date
     @api.depends('team_id', 'priority', 'ticket_type_id', 'create_date')
     def _compute_sla(self):
-        print(self.user_has_groups("helpdesk.group_use_sla"), " - start")
         if not self.user_has_groups("helpdesk.group_use_sla"):
             return
         for ticket in self:
+            print(f"ticket.team_id.id -> {ticket.team_id}, priority -> {ticket.priority}, ticket.ticket_type_id -> {ticket.ticket_type_id}")
+            print("/"*50)
             dom = [('team_id', '=', ticket.team_id.id), ('priority', '<=', ticket.priority), '|', ('ticket_type_id', '=', ticket.ticket_type_id.id), ('ticket_type_id', '=', False)]
             sla = ticket.env['helpdesk.sla'].search(dom, order="time_days, time_hours", limit=1)
-            print(sla," ", "sla"*25)
-            print(sla," ", "sla_id"*25)
             working_calendar = self.env.user.company_id.resource_calendar_id
+            print(f"sla -> {sla}, working_calendar -> {working_calendar}")
+            print("/"*50)
             if sla and ticket.sla_id != sla and ticket.active and ticket.create_date:
                 ticket.sla_id = sla.id
                 ticket.sla_name = sla.name
