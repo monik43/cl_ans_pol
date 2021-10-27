@@ -60,20 +60,27 @@ class helpdesk_ticket(models.Model):
         if not self.user_has_groups("helpdesk.group_use_sla"):
             return
         for ticket in self:
-            print(f"ticket.team_id.id -> {ticket.team_id}, priority -> {ticket.priority}, ticket.ticket_type_id -> {ticket.ticket_type_id}")
-            print("/"*50)
-            dom = [('team_id', '=', ticket.team_id.id), ('priority', '<=', ticket.priority), '|', ('ticket_type_id', '=', ticket.ticket_type_id.id), ('ticket_type_id', '=', False)]
-            sla = ticket.env['helpdesk.sla'].search(dom, order="time_days, time_hours", limit=1)
-            working_calendar = self.env.user.company_id.resource_calendar_id
-            print(f"sla -> {sla}, working_calendar -> {working_calendar}")
-            print("/"*50)
-            if sla and ticket.sla_id != sla and ticket.active and ticket.create_date:
-                ticket.sla_id = sla.id
-                ticket.sla_name = sla.name
+            if ticket.active and ticket.create_date:
+                # asignacion politica ans correcta
+                if ticket.stage_id.sla_id:
+                    ticket.sla_id = ticket.stage_id.sla_id
+                elif not ticket.stage_id.sla_id and self.env["helpdesk.sla"].search(
+                    [("name", "=", ticket.stage_id.name)]
+                ):
+                    ticket.sla_id = self.env["helpdesk.sla"].search(
+                        [("name", "=", ticket.stage_id.name)]
+                    )
+                # asignacion usuario x defecto
+                if (
+                    ticket.stage_id.def_assign
+                    and ticket.user_id != ticket.stage_id.def_assign
+                ):
+                    ticket.user_id = ticket.stage_id.def_assign
                 ticket_create_date = fields.Datetime.from_string(ticket.create_date)
-                if sla.time_days > 0:
+                working_calendar = self.env.user.company_id.resource_calendar_id
+                if ticket.sla_id.time_days > 0:
                     deadline = working_calendar.plan_days(
-                        sla.time_days+1,
+                        ticket.sla_id.time_days+1,
                         ticket_create_date,
                         compute_leaves=True)
                     # We should also depend on ticket creation time, otherwise for 1 day SLA for example all tickets
@@ -85,7 +92,7 @@ class helpdesk_ticket(models.Model):
                 # if i create a ticket for 1 day sla configuration and tomorrow at the same time i don't work,
                 # deadline falls on the time that i don't work which is ticket creation time and is not correct
                 ticket.deadline = working_calendar.plan_hours(
-                    sla.time_hours,
+                    ticket.sla_id.time_hours,
                     deadline,
                     compute_leaves=True)
 
