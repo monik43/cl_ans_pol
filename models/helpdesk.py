@@ -39,7 +39,7 @@ class helpdesk_ticket(models.Model):
     def onchange_x_lot_id_unlink(self):
         for ticket in self:
             for tic in ticket.historial_tickets:
-                if tic.x_lot_id.id != ticket.x_lot_id.id:
+                if tic.x_lot_id.id != ticket.x_lot_id.id or not tic.x_lot_id:
                     ticket.update({"historial_tickets": [(3, tic.id)]})
 
     @api.onchange("stage_id")
