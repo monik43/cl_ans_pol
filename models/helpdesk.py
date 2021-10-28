@@ -15,15 +15,16 @@ class helpdesk_ticket(models.Model):
 
     def _get_historial_tickets(self):
         for ticket in self:
-            for t in (
-                self.env["helpdesk.ticket"]
-                .with_context(active_test=False)
-                .search([("x_lot_id.id", "=", ticket.x_lot_id.id)])
-            ):
-                if t.id != ticket.id and (t.active in (True, False)):
-                    ticket.update({"historial_tickets": [(4, t.id)]})
+            if ticket.x_lot_id:
+                for t in (
+                    self.env["helpdesk.ticket"]
+                    .with_context(active_test=False)
+                    .search([("x_lot_id.id", "=", ticket.x_lot_id.id)])
+                ):
+                    if t.id != ticket.id and (t.active in (True, False)):
+                        ticket.update({"historial_tickets": [(4, t.id)]})
             for tic in ticket.historial_tickets:
-                if tic.x_lot_id.id != ticket.x_lot_id.id:
+                if tic.x_lot_id.id != ticket.x_lot_id.id or not tic.x_lot_id:
                     ticket.update({"historial_tickets": [(3, tic.id)]})
 
     historial_tickets = fields.One2many(
@@ -61,7 +62,7 @@ class helpdesk_ticket(models.Model):
                 ticket.user_id = ticket.stage_id.def_assign
             ticket_create_date = fields.Datetime.from_string(ticket.create_date)
             working_calendar = self.env.user.company_id.resource_calendar_id
-            
+
     @api.depends("stage_id", "create_date")
     def _compute_sla(self):
         if not self.user_has_groups("helpdesk.group_use_sla"):
