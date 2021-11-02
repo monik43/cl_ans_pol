@@ -50,7 +50,7 @@ class helpdesk_ticket(models.Model):
             ):
                 print(f"""
                     name -> {self.env["helpdesk.sla"].search([("stage_id", "=", ticket.stage_id.id)]).name}
-                    dias, horas -> {self.env["helpdesk.sla"].search([("stage_id", "=", ticket.stage_id.ud)]).time_days}, {self.env["helpdesk.sla"].search([("stage_id", "=", ticket.stage_id.id)]).time_hours}
+                    dias, horas -> {self.env["helpdesk.sla"].search([("stage_id", "=", ticket.stage_id.id)]).time_days}, {self.env["helpdesk.sla"].search([("stage_id", "=", ticket.stage_id.id)]).time_hours}
                 """)
             # asignacion usuario x defecto
             if (
