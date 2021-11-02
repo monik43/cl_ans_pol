@@ -45,14 +45,13 @@ class helpdesk_ticket(models.Model):
     def onchange_stage_id_eq_sla_id(self):
         for ticket in self:
             # asignacion politica ans correcta
-            if ticket.stage_id.sla_id:
-                ticket.sla_id = ticket.stage_id.sla_id
-            elif not ticket.stage_id.sla_id and self.env["helpdesk.sla"].search(
-                [("name", "=", ticket.stage_id.name)]
+            if self.env["helpdesk.sla"].search(
+                [("stage_id", "=", ticket.stage_id.id)]
             ):
-                ticket.sla_id = self.env["helpdesk.sla"].search(
-                    [("name", "=", ticket.stage_id.name)]
-                )
+                print(f"""
+                    name -> {self.env["helpdesk.sla"].search([("stage_id", "=", ticket.stage_id)]).name}
+                    dias, horas -> {self.env["helpdesk.sla"].search([("stage_id", "=", ticket.stage_id)]).time_days}, {self.env["helpdesk.sla"].search([("stage_id", "=", ticket.stage_id)]).time_hours}
+                """)
             # asignacion usuario x defecto
             if (
                 ticket.stage_id.def_assign
