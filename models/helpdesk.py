@@ -44,54 +44,26 @@ class helpdesk_ticket(models.Model):
     @api.onchange("stage_id")
     def onchange_stage_id_eq_sla_id(self):
         for ticket in self:
-            # asignacion politica ans correcta
-            if self.env["helpdesk.sla"].search(
-                [("stage_id", "=", ticket.stage_id.id)]
-            ):
-                print(f"""
-                    name -> {self.env["helpdesk.sla"].search([("stage_id", "=", ticket.stage_id.id)]).name}
-                    dias, horas -> {self.env["helpdesk.sla"].search([("stage_id", "=", ticket.stage_id.id)]).time_days}, {self.env["helpdesk.sla"].search([("stage_id", "=", ticket.stage_id.id)]).time_hours}
-                """)
-            # asignacion usuario x defecto
-            if (
-                ticket.stage_id.def_assign
-                and ticket.user_id != ticket.stage_id.def_assign
-            ):
-                ticket.user_id = ticket.stage_id.def_assign
-            ticket_create_date = fields.Datetime.from_string(ticket.create_date)
-            working_calendar = self.env.user.company_id.resource_calendar_id
-            
+            ticket._compute_sla()
+
     @api.depends("stage_id", "create_date")
     def _compute_sla(self):
         if not self.user_has_groups("helpdesk.group_use_sla"):
             return
         for ticket in self:
-            if ticket.active and ticket.create_date:
-                # asignacion politica ans correcta
-                if ticket.stage_id.sla_id:
-                    ticket.sla_id = ticket.stage_id.sla_id
-                elif not ticket.stage_id.sla_id and self.env["helpdesk.sla"].search(
-                    [("name", "=", ticket.stage_id.name)]
-                ):
-                    ticket.sla_id = self.env["helpdesk.sla"].search(
-                        [("name", "=", ticket.stage_id.name)]
-                    )
-                # asignacion usuario x defecto
-                if (
-                    ticket.stage_id.def_assign
-                    and ticket.user_id != ticket.stage_id.def_assign
-                ):
-                    ticket.user_id = ticket.stage_id.def_assign
-                ticket_create_date = fields.Datetime.from_string(ticket.create_date)
-                working_calendar = self.env.user.company_id.resource_calendar_id
-                if ticket.sla_id.time_days > 0:
+            sla = self.env["helpdesk.sla"].search(
+                [("stage_id", "=", ticket.stage_id.id)]
+            )
+            working_calendar = self.env.user.company_id.resource_calendar_id
+            # asignacion politica ans correcta
+            if sla and ticket.sla_id != sla and ticket.active:
+                ticket.sla_id = sla.id
+                ticket.sla_name = sla.name
+                ticket_create_date = fields.Datetime.from_string(fields.Datetime.now())
+                if sla.time_days > 0:
                     deadline = working_calendar.plan_days(
-                        ticket.sla_id.time_days + 1,
-                        ticket_create_date,
-                        compute_leaves=True,
+                        sla.time_days + 1, ticket_create_date, compute_leaves=True
                     )
-                    # We should also depend on ticket creation time, otherwise for 1 day SLA for example all tickets
-                    # created on monday will have the deadline as tuesday 8:00
                     deadline = deadline.replace(
                         hour=ticket_create_date.hour,
                         minute=ticket_create_date.minute,
@@ -100,12 +72,15 @@ class helpdesk_ticket(models.Model):
                     )
                 else:
                     deadline = ticket_create_date
-                # We should execute the function plan_hours in any case because
-                # if i create a ticket for 1 day sla configuration and tomorrow at the same time i don't work,
-                # deadline falls on the time that i don't work which is ticket creation time and is not correct
                 ticket.deadline = working_calendar.plan_hours(
-                    ticket.sla_id.time_hours, deadline, compute_leaves=True
+                    sla.time_hours, deadline, compute_leaves=True
                 )
+                # asignacion usuario x defecto
+            if (
+                ticket.stage_id.def_assign
+                and ticket.user_id != ticket.stage_id.def_assign
+            ):
+                ticket.user_id = ticket.stage_id.def_assign
 
     @api.multi
     def open_ticket(self):
