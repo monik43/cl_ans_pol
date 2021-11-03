@@ -45,7 +45,10 @@ class helpdesk_ticket(models.Model):
     @api.onchange("stage_id")
     def onchange_stage_id_eq_sla_id(self):
         self.last_deadline = self.deadline
-        print(self._origin.write_date, "//"*25)
+        print(f"""
+                _origin -> {self._origin.write_date}
+                self -> {self.write_date}
+        """)
         self.env.cr.execute(
             f"""SELECT stage_id
                 FROM helpdesk_ticket 
