@@ -55,7 +55,7 @@ class helpdesk_ticket(models.Model):
         if isinstance(ret, int):
             print(f"""
                     browse -> {self.env["helpdesk.stage"].browse(ret).name}
-                    self -> {self._origin.stage_id.name}
+                    self -> {self.stage_id.name}
                     """,)
         # if sequencia actual < sequencia anterior and han pasado menos de 6h del anterior cambio de estado
         # ticket._compute_sla()
