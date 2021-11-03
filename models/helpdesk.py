@@ -31,6 +31,7 @@ class helpdesk_ticket(models.Model):
         for ticket in self:
             total = 0.00
             for repar in self.env['mrp.repair'].search([('lot_id', '=', ticket.x_lot_id.id)]):
+                print(repar.lot_id)
                 total += repar.amount_total
             print(total, " ", "//"*25)
             ticket.client_total = total
