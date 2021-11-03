@@ -43,19 +43,20 @@ class helpdesk_ticket(models.Model):
 
     @api.onchange("stage_id")
     def onchange_stage_id_eq_sla_id(self):
-        for ticket in self:
-            ticket.last_deadline = ticket.deadline
-            print(ticket._origin, "//"*25)
-            """self.env.cr.execute(
+        print(self._origin, "//"*25)
+        """for ticket in self:
+            ticket.last_deadline = ticket.deadline"""
+            
+        """self.env.cr.execute(
                     f"""#SELECT stage_id
                         #FROM helpdesk_ticket 
                         #WHERE id = {ticket.id};"""
                 #)
-            """ret = self.env.cr.fetchone()[0]
+        """ret = self.env.cr.fetchone()[0]
             if isinstance(ret, int):
                 print(self.env["helpdesk.stage"].browse(ret), " ", "//"*25)"""
             # if sequencia actual < sequencia anterior and han pasado menos de 6h del anterior cambio de estado
-            ticket._compute_sla()
+            #ticket._compute_sla()
 
     @api.depends("stage_id", "create_date")
     def _compute_sla(self):
