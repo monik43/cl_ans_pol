@@ -33,7 +33,8 @@ class helpdesk_ticket(models.Model):
         context={"active_test": False},
     )
     # historial_tickets = fields.One2many('helpdesk.ticket')
-    last_deadline = fields.Datetime(string='Last deadline')
+    last_deadline = fields.Datetime(string="Last deadline")
+
     @api.onchange("x_lot_id")
     def onchange_x_lot_id_unlink(self):
         for ticket in self:
@@ -43,20 +44,18 @@ class helpdesk_ticket(models.Model):
 
     @api.onchange("stage_id")
     def onchange_stage_id_eq_sla_id(self):
-        print(self._origin, "//"*25)
-        """for ticket in self:
-            ticket.last_deadline = ticket.deadline"""
-            
-        """self.env.cr.execute(
-                    f"""#SELECT stage_id
-                        #FROM helpdesk_ticket 
-                        #WHERE id = {ticket.id};"""
-                #)
-        """ret = self.env.cr.fetchone()[0]
-            if isinstance(ret, int):
-                print(self.env["helpdesk.stage"].browse(ret), " ", "//"*25)"""
-            # if sequencia actual < sequencia anterior and han pasado menos de 6h del anterior cambio de estado
-            #ticket._compute_sla()
+        self.last_deadline = self.deadline
+
+        self.env.cr.execute(
+            f"""SELECT stage_id
+                FROM helpdesk_ticket 
+                WHERE id = {self._origin.id};"""
+        )
+        ret = self.env.cr.fetchone()[0]
+        if isinstance(ret, int):
+            print(self.env["helpdesk.stage"].browse(ret), " ", "//" * 25)
+        # if sequencia actual < sequencia anterior and han pasado menos de 6h del anterior cambio de estado
+        # ticket._compute_sla()
 
     @api.depends("stage_id", "create_date")
     def _compute_sla(self):
@@ -71,7 +70,9 @@ class helpdesk_ticket(models.Model):
             if sla and ticket.sla_id != sla and ticket.active:
                 ticket.sla_id = sla.id
                 ticket.sla_name = sla.name
-                ticket_deadline_date = fields.Datetime.from_string(fields.Datetime.now())
+                ticket_deadline_date = fields.Datetime.from_string(
+                    fields.Datetime.now()
+                )
                 if sla.time_days > 0:
                     deadline = working_calendar.plan_days(
                         sla.time_days + 1, ticket_deadline_date, compute_leaves=True
