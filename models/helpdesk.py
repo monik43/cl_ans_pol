@@ -46,8 +46,7 @@ class helpdesk_ticket(models.Model):
     def onchange_stage_id_eq_sla_id(self):
         self.last_deadline = self.deadline
         print(f"""
-                _origin -> {self._origin.write_date}
-                self -> {self.write_date}
+                _origin.write_date {self._origin.write_date - fields.Datetime.now()}
         """)
         self.env.cr.execute(
             f"""SELECT stage_id
