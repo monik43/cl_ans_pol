@@ -27,14 +27,23 @@ class helpdesk_ticket(models.Model):
                 if tic.x_lot_id.id != ticket.x_lot_id.id:
                     ticket.update({"historial_tickets": [(3, tic.id)]})
 
+    def _compute_client_total(self):
+        for ticket in self:
+            total = 0.00
+            for repar in self.env['mrp.repair'].search('partner_id', '=', ticket.partner_id):
+                total += repar.amount_total
+            print(total, " ", "//"*25)
+            ticket.client_total = total
+
     historial_tickets = fields.One2many(
         "helpdesk.ticket",
         string="Tickets anteriores",
         compute="_get_historial_tickets",
         context={"active_test": False},
     )
-    # historial_tickets = fields.One2many('helpdesk.ticket')
+
     last_deadline = fields.Datetime(string="Last deadline")
+    client_total = fields.Float(string="Total gastado en reparaciones",compute="_compute_client_total")
 
     @api.onchange("x_lot_id")
     def onchange_x_lot_id_unlink(self):
