@@ -30,9 +30,10 @@ class helpdesk_ticket(models.Model):
     def _compute_client_total(self):
         for ticket in self:
             total = 0.00
-            print(ticket.x_lot_id)
-            for repar in self.env['mrp.repair'].search([('lot_id', '=', ticket.x_lot_id.id)]):
-                total += repar.amount_total
+            for repar in self.env['mrp.repair'].search([('partner_id', '=', ticket.partner_id.id)]):
+                if repar.lot_id == ticket.x_lot_id:
+                    print(repar.lot_id)
+                    total += repar.amount_total
             print(total, " ", "//"*25)
             ticket.client_total = total
 
@@ -42,6 +43,7 @@ class helpdesk_ticket(models.Model):
         compute="_get_historial_tickets",
         context={"active_test": False},
     )
+
     last_deadline = fields.Datetime(string="Last deadline")
     client_total = fields.Float(string="Total gastado en reparaciones",compute="_compute_client_total")
 
