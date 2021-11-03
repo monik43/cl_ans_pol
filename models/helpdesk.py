@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 
+from datetime import timedelta
 from odoo import api, fields, models, _
 
 
@@ -45,9 +46,8 @@ class helpdesk_ticket(models.Model):
     @api.onchange("stage_id")
     def onchange_stage_id_eq_sla_id(self):
         self.last_deadline = self.deadline
-        print(f"""
-                _origin.write_date {self._origin.write_date - fields.Datetime.now()}
-        """)
+        if (self._origin.write_date + timedelta(hours=2)) > fields.Datetime.now():
+            print("hace menos de seis horas ", "//"*25)
         self.env.cr.execute(
             f"""SELECT stage_id
                 FROM helpdesk_ticket 
