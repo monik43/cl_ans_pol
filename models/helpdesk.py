@@ -33,7 +33,7 @@ class helpdesk_ticket(models.Model):
         context={"active_test": False},
     )
     # historial_tickets = fields.One2many('helpdesk.ticket')
-
+    last_deadline = fields.Datetime(string='Last deadline')
     @api.onchange("x_lot_id")
     def onchange_x_lot_id_unlink(self):
         for ticket in self:
@@ -44,6 +44,9 @@ class helpdesk_ticket(models.Model):
     @api.onchange("stage_id")
     def onchange_stage_id_eq_sla_id(self):
         for ticket in self:
+            ticket.last_deadline = ticket.deadline
+            print(ticket._origin, " ", "/"*50)
+            # if sequencia actual < sequencia anterior and han pasado menos de 6h del anterior cambio de estado
             ticket._compute_sla()
 
     @api.depends("stage_id", "create_date")
@@ -59,19 +62,19 @@ class helpdesk_ticket(models.Model):
             if sla and ticket.sla_id != sla and ticket.active:
                 ticket.sla_id = sla.id
                 ticket.sla_name = sla.name
-                ticket_create_date = fields.Datetime.from_string(fields.Datetime.now())
+                ticket_deadline_date = fields.Datetime.from_string(fields.Datetime.now())
                 if sla.time_days > 0:
                     deadline = working_calendar.plan_days(
-                        sla.time_days + 1, ticket_create_date, compute_leaves=True
+                        sla.time_days + 1, ticket_deadline_date, compute_leaves=True
                     )
                     deadline = deadline.replace(
-                        hour=ticket_create_date.hour,
-                        minute=ticket_create_date.minute,
-                        second=ticket_create_date.second,
-                        microsecond=ticket_create_date.microsecond,
+                        hour=ticket_deadline_date.hour,
+                        minute=ticket_deadline_date.minute,
+                        second=ticket_deadline_date.second,
+                        microsecond=ticket_deadline_date.microsecond,
                     )
                 else:
-                    deadline = ticket_create_date
+                    deadline = ticket_deadline_date
                 ticket.deadline = working_calendar.plan_hours(
                     sla.time_hours, deadline, compute_leaves=True
                 )
