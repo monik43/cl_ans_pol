@@ -52,12 +52,8 @@ class helpdesk_ticket(models.Model):
                 WHERE id = {self._origin.id};"""
         )
         ret = self.env.cr.fetchone()[0]
-        if isinstance(ret, int):
-            print(f"""
-                    browse -> {self.env["helpdesk.stage"].browse(ret).sequence}
-                    self -> {self.stage_id.sequence}
-                    """,)
-        # if sequencia actual < sequencia anterior and han pasado menos de 6h del anterior cambio de estado
+        if self.stage_id.sequence < self.env["helpdesk.stage"].browse(ret).sequence:
+            print("stage hacia atras", "//"*25)# and han pasado menos de 6h del anterior cambio de estado
         # ticket._compute_sla()
 
     @api.depends("stage_id", "create_date")
