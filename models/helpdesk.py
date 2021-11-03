@@ -45,7 +45,6 @@ class helpdesk_ticket(models.Model):
     def onchange_stage_id_eq_sla_id(self):
         for ticket in self:
             ticket.last_deadline = ticket.deadline
-            print(ticket._origin, " ", "/"*50)
             # if sequencia actual < sequencia anterior and han pasado menos de 6h del anterior cambio de estado
             ticket._compute_sla()
 
