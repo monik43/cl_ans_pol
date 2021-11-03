@@ -50,7 +50,7 @@ class helpdesk_ticket(models.Model):
                     f"""#SELECT stage_id
                         #FROM helpdesk_ticket 
                         #WHERE id = {ticket.id};"""
-                )
+                #)
             """ret = self.env.cr.fetchone()[0]
             if isinstance(ret, int):
                 print(self.env["helpdesk.stage"].browse(ret), " ", "//"*25)"""
