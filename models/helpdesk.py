@@ -45,7 +45,7 @@ class helpdesk_ticket(models.Model):
     def onchange_stage_id_eq_sla_id(self):
         for ticket in self:
             ticket.last_deadline = ticket.deadline
-            print(ticket, "//"*25)
+            print(ticket._origin, "//"*25)
             """self.env.cr.execute(
                     f"""#SELECT stage_id
                         #FROM helpdesk_ticket 
