@@ -48,7 +48,7 @@ class helpdesk_ticket(models.Model):
             self.env.cr.execute(
                     f"""SELECT stage_id
                         FROM helpdesk_ticket 
-                        WHERE id = {ticket.id};"""
+                        WHERE id = {self.id};"""
                 )
             ret = self.env.cr.fetchone()[0]
             if isinstance(ret, int):
