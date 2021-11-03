@@ -42,7 +42,6 @@ class helpdesk_ticket(models.Model):
         compute="_get_historial_tickets",
         context={"active_test": False},
     )
-
     last_deadline = fields.Datetime(string="Last deadline")
     client_total = fields.Float(string="Total gastado en reparaciones",compute="_compute_client_total")
 
