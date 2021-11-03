@@ -54,7 +54,7 @@ class helpdesk_ticket(models.Model):
         ret = self.env.cr.fetchone()[0]
         if self.stage_id.sequence < self.env["helpdesk.stage"].browse(ret).sequence:
             print(self.last_deadline, "//"*25)# and han pasado menos de 6h del anterior cambio de estado
-        # ticket._compute_sla()
+        self._compute_sla()
 
     @api.depends("stage_id", "create_date")
     def _compute_sla(self):
