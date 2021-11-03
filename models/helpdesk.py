@@ -47,7 +47,7 @@ class helpdesk_ticket(models.Model):
     def onchange_stage_id_eq_sla_id(self):
         self.last_deadline = self.deadline
         if (self._origin.write_date + timedelta(hours=2)) > fields.Datetime.now():
-            print("hace menos de seis horas ", "//"*25)
+            print("hace menos de dos horas ", "//"*25)
         self.env.cr.execute(
             f"""SELECT stage_id
                 FROM helpdesk_ticket 
