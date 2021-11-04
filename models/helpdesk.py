@@ -30,12 +30,9 @@ class helpdesk_ticket(models.Model):
     def _compute_client_total(self):
         for ticket in self:
             total = 0.00
-            print(f"ticket.x_lot_id -> {ticket.x_lot_id}")
             for repar in self.env['mrp.repair'].search([('partner_id', '=', ticket.partner_id.id)]):
                 if repar.lot_id == ticket.x_lot_id:
-                    print(f"repar.lot_id -> {repar.lot_id}")
-                    total += repar.amount_total
-            #print(total, " ", "//"*25)
+                    total += repar.amount_untaxed
             ticket.client_total = total
 
     historial_tickets = fields.One2many(
@@ -105,7 +102,7 @@ class helpdesk_ticket(models.Model):
                 ticket.deadline = working_calendar.plan_hours(
                     sla.time_hours, deadline, compute_leaves=True
                 )
-                # asignacion usuario x defecto
+            # asignacion usuario x defecto
             if (
                 ticket.stage_id.def_assign
                 and ticket.user_id != ticket.stage_id.def_assign

@@ -30,7 +30,7 @@
           <field name="last_deadline" invisible="1"/>
         </xpath>
         <xpath expr="//field[@name='ticket_type_id']" position="before">
-          <field name="client_total"/>
+          <field name="client_total" attrs="{'invisible': [('client_total', '=', 0.00)]}"/>
         </xpath>
       </field>
     </record>
