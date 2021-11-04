@@ -26,5 +26,6 @@
         'views/cl_minor_additions_views.xml',
         'views/portal_templates.xml',
         'views/stock_production_lot_views.xml',
+        'views/mrp_repair_views.xml',
     ],
 }
