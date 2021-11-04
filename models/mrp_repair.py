@@ -8,6 +8,6 @@ class mrp_repair_line(models.Model):
 
     def _compute_lot_assigned(self):
         for rep in self:
-            if self.env['mrp.repair.line'].search([('lot_id','=',rep.lot_id)]):
+            if self.env['mrp.repair.line'].search([('lot_id','=',rep.lot_id.id)]):
                 print("El nº de lote ya está asignado en otra reparación. ", "/"*50)
                 rep.lot_assigned = True
