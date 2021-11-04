@@ -6,7 +6,7 @@
             <field name="inherit_id" ref="mrp_repair.view_repair_order_form"/>
             <field name="arch" type="xml">
                 <xpath expr="//tree/field[@name='lot_id']" position="attributes">
-                    <attribute name="domain">[('&amp;'),('product_id', '=', product_id),('lot_assigned','=', False)]</attribute>
+                    <attribute name="domain">['&amp;',('product_id', '=', product_id),('lot_assigned','=', False)]</attribute>
                 </xpath>
             </field>
         </record>
