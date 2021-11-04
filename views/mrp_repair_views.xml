@@ -12,4 +12,3 @@
         </record>
     </data>
 </odoo>
-<xpath expr="//field[@name='operations']/tree" position="inside">
