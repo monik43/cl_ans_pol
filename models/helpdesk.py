@@ -30,11 +30,12 @@ class helpdesk_ticket(models.Model):
     def _compute_client_total(self):
         for ticket in self:
             total = 0.00
+            print(f"ticket.x_lot_id -> {ticket.x_lot_id}")
             for repar in self.env['mrp.repair'].search([('partner_id', '=', ticket.partner_id.id)]):
                 if repar.lot_id == ticket.x_lot_id:
-                    print(repar.lot_id)
+                    print(f"repar.lot_id -> {repar.lot_id}")
                     total += repar.amount_total
-            print(total, " ", "//"*25)
+            #print(total, " ", "//"*25)
             ticket.client_total = total
 
     historial_tickets = fields.One2many(
