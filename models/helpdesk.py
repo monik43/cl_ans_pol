@@ -16,15 +16,16 @@ class helpdesk_ticket(models.Model):
 
     def _get_historial_tickets(self):
         for ticket in self:
-            for t in (
-                self.env["helpdesk.ticket"]
-                .with_context(active_test=False)
-                .search([("x_lot_id.id", "=", ticket.x_lot_id.id)])
-            ):
-                if t.id != ticket.id and (t.active in (True, False)):
-                    ticket.update({"historial_tickets": [(4, t.id)]})
+            if ticket.x_lot_id:
+                for t in (
+                    self.env["helpdesk.ticket"]
+                    .with_context(active_test=False)
+                    .search([("x_lot_id.id", "=", ticket.x_lot_id.id)])
+                ):
+                    if t.id != ticket.id and (t.active in (True, False)):
+                        ticket.update({"historial_tickets": [(4, t.id)]})
             for tic in ticket.historial_tickets:
-                if tic.x_lot_id.id != ticket.x_lot_id.id:
+                if tic.x_lot_id.id != ticket.x_lot_id.id or not tic.x_lot_id:
                     ticket.update({"historial_tickets": [(3, tic.id)]})
 
     def _compute_client_total(self):
@@ -49,7 +50,7 @@ class helpdesk_ticket(models.Model):
     def onchange_x_lot_id_unlink(self):
         for ticket in self:
             for tic in ticket.historial_tickets:
-                if tic.x_lot_id.id != ticket.x_lot_id.id:
+                if tic.x_lot_id.id != ticket.x_lot_id.id or not tic.x_lot_id:
                     ticket.update({"historial_tickets": [(3, tic.id)]})
 
     @api.onchange("stage_id")
@@ -70,6 +71,7 @@ class helpdesk_ticket(models.Model):
             self.deadline = self.last_deadline
         self.last_deadline = self.deadline
         self._compute_sla()
+
 
     @api.depends("stage_id", "create_date")
     def _compute_sla(self):
