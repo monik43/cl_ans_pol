@@ -4,7 +4,6 @@ from odoo import api, fields, models, _
 class stock_production_lot(models.Model):
     _inherit = "stock.production.lot"
 
-    
     in_repair_lines = fields.One2many('mrp.repair.line', 'lot_id', "Lineas de operaciones")
 
     def _compute_in_repair_lines(self):
