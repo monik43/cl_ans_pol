@@ -1,0 +1,14 @@
+<odoo>
+    <data>
+        <record id="cl_mrp_repair_view_repair_order_form_assigned_computation_lot" model="ir.ui.view">
+            <field name="name">cl_mrp.repair.form.assigned.computation.lot</field>
+            <field name="model">mrp.repair</field>
+            <field name="inherit_id" ref="mrp_repair.view_repair_order_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//tree/field[@name='lot_id']" position="attributes">
+                    <attribute name="domain">['&amp;',('product_id', '=', product_id),('in_repair_lines','=', False)]</attribute>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>
