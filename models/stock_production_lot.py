@@ -6,7 +6,7 @@ class stock_production_lot(models.Model):
 
     lot_assigned = fields.Boolean("Lote ya asignado", default=False, compute="_compute_lot_assigned", store=True)
 
-    @api.depends("id", "product_id")
+    @api.depends("product_id")
     def _compute_lot_assigned(self):
         for rec in self:
             if rec.product_id and rec.name != '9999' and self.env['mrp.repair.line'].search([('lot_id.id','=',rec.id)]):
