@@ -9,6 +9,7 @@ class stock_production_lot(models.Model):
     @api.depends("product_id")
     def _compute_lot_assigned(self):
         for rec in self:
-            if rec.product_id and self.env['mrp.repair.line'].search([('lot_id.id','=',rec.id)]):
+            print(rec.product_id, " ", rec.name, " ", "//"*25)
+            """if rec.product_id and self.env['mrp.repair.line'].search([('lot_id.id','=',rec.id)]):
                 #rec.lot_assigned = True
-                print(rec.lot_assigned, rec.product_id, "/"*50)
+                print(rec.lot_assigned, rec.product_id, "/"*50)"""
