@@ -32,11 +32,10 @@
                                 <field name="tax_id" widget="many2many_tags" domain="[('type_tax_use','=','sale')]"/>
                                 <field name="price_subtotal" widget="monetary"/>
                             </tree>
-                        </tree>
-                    </field>
-                </page>
-            </xpath>
-        </field>
-    </record>
-</data>
+                        </field>
+                    </page>
+                </xpath>
+            </field>
+        </record>
+    </data>
 </odoo>
