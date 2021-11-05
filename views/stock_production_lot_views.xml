@@ -1,15 +1,5 @@
 <odoo>
     <data>
-        <record id="cl_stock_production_lot_form_assigned_computation" model="ir.ui.view">
-            <field name="name">cl_stock.production.lot.form.assigned.computation</field>
-            <field name="model">stock.production.lot</field>
-            <field name="inherit_id" ref="stock.view_production_lot_form"/>
-            <field name="arch" type="xml">
-                <xpath expr="//field[@name='product_id']" position="after">
-                    <field name="lot_assigned"/>
-                </xpath>
-            </field>
-        </record>
         <record id="cl_prisme_lots_enhancement_in_repair_lines" model="ir.ui.view">
             <field name="name">cl_prisme.lots.enhancement.in.repair.lines</field>
             <field name="model">stock.production.lot</field>
