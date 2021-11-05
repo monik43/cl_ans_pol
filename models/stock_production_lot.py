@@ -11,3 +11,4 @@ class stock_production_lot(models.Model):
         for rec in self:
             if self.env['mrp.repair.line'].search([('lot_id.id','=',rec.id)]) and rec.name != '9999':
                 rec.lot_assigned = True
+                print(rec.lot_assigned)
