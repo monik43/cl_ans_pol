@@ -9,4 +9,5 @@ class mrp_repair(models.Model):
         self.location_dest_id = self.location_id.id
 
         for line in self.operations:
+            print(line.location_id, " ", "\\"*25)
             line.location_id = self.location_id
