@@ -32,7 +32,7 @@ class helpdesk_ticket(models.Model):
         for ticket in self:
             total = 0.00
             for repar in self.env['mrp.repair'].search([('partner_id', '=', ticket.partner_id.id)]):
-                if repar.lot_id == ticket.x_lot_id:
+                if repar.lot_id == ticket.x_lot_id and ticket.state == 'done':
                     total += repar.amount_untaxed
             ticket.client_total = total
 
