@@ -9,4 +9,5 @@ class stock_production_lot(models.Model):
     def _compute_in_repair_lines(self):
         for rec in self:
             for line in self.env['mrp.repair.line'].browse([('lot_id','=',rec.id)]):
-                rec.update({"in_repair_lines": [(4, line.id)]})
+                if line.name != '9999':
+                    rec.update({"in_repair_lines": [(4, line.id)]})
